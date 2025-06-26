@@ -3,6 +3,7 @@ import 'package:todoapp/utils/constants.dart';
 import 'package:todoapp/utils/text_style.dart';
 import 'package:todoapp/widgets/notes_todo_card.dart';
 import 'package:todoapp/widgets/progress_card.dart';
+import 'package:todoapp/utils/router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: Text('NoteSphere', style: AppTextStyle.appTitle)),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             ProgressCard(completedTasks: 1, totalTasks: 3),
@@ -25,15 +26,25 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                NotesTodoCard(
-                  title: 'Notes',
-                  description: '40 notes',
-                  icon: Icons.bookmark_add_outlined,
+                GestureDetector(
+                  onTap: () {
+                    AppRouter.router.push('/notes');
+                  },
+                  child: NotesTodoCard(
+                    title: 'Notes',
+                    description: '40 notes',
+                    icon: Icons.bookmark_add_outlined,
+                  ),
                 ),
-                NotesTodoCard(
-                  title: 'To-do list',
-                  description: '100 todos',
-                  icon: Icons.today_outlined,
+                GestureDetector(
+                  onTap: () {
+                    AppRouter.router.push('/todo');
+                  },
+                  child: NotesTodoCard(
+                    title: 'To-do list',
+                    description: '100 todos',
+                    icon: Icons.today_outlined,
+                  ),
                 ),
               ],
             ),
@@ -46,7 +57,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(height: AppConstants.kDefaultPadding * 1.5),
-            
           ],
         ),
       ),
